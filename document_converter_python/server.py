@@ -250,9 +250,18 @@ def office_to_pdf(allowed_extensions):
         # ====================================================
         # CLEANUP STALE PROCESSES
         # ====================================================
-        subprocess.run(["taskkill", "/F", "/IM", "soffice.exe", "/T"], capture_output=True)
-        subprocess.run(["taskkill", "/F", "/IM", "soffice.bin", "/T"], capture_output=True)
-        time.sleep(0.5)
+        if os.name == "nt":
+            subprocess.run(
+                ["taskkill", "/F", "/IM", "soffice.exe", "/T"],
+                capture_output=True
+            )
+
+            subprocess.run(
+                ["taskkill", "/F", "/IM", "soffice.bin", "/T"],
+                capture_output=True
+            )
+
+            time.sleep(0.5)
 
         # ====================================================
         # CREATE UNIQUE TEMP DIRECTORY
